@@ -1,0 +1,856 @@
+{
+  "gost": "7.32-2017",
+  "related": ["GOST R 7.0.5-2008 (bibliography)"],
+  "notes": {
+    "font": "Times New Roman 12 pt (docDefaults A.docx). Поля — ГОСТ 7.32–2017; визуальные стили заголовков/подписей/таблиц/TOC/сносок — из A.docx.",
+    "source_document": "A.docx",
+    "ambiguous": [
+      "В A.docx у ячеек таблиц часто 12 pt; здесь table 10 pt (уплотнение, CLI --table-pt).",
+      "Маркированный список: маркер «—» (Em Dash), не «буллеты Word»."
+    ]
+  },
+  "units": {
+    "twips_per_pt": 20,
+    "twips_per_mm": 56.6929133858,
+    "dxa_equals_twips": true
+  },
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "width_mm": 210,
+    "height_mm": 297,
+    "width_twips": 11906,
+    "height_twips": 16838,
+    "margins_mm": {
+      "left": 30,
+      "right": 15,
+      "top": 20,
+      "bottom": 20
+    },
+    "margins_twips": {
+      "left": 1701,
+      "right": 851,
+      "top": 1134,
+      "bottom": 1134
+    },
+    "header_distance_mm": 10,
+    "footer_distance_mm": 10,
+    "header_distance_twips": 567,
+    "footer_distance_twips": 567,
+    "page_numbers": {
+      "position": "footer_center",
+      "format": "decimal",
+      "start_at": 1,
+      "show_on_title_page": false,
+      "continuous_through_appendices": true
+    }
+  },
+  "defaults": {
+    "font": "Times New Roman",
+    "font_east_asia": "Times New Roman",
+    "color": "000000",
+    "body_size_pt": 12,
+    "body_size_half_points": 24,
+    "line_spacing": 1.5,
+    "first_line_indent_mm": 15.01,
+    "first_line_indent_twips": 851,
+    "alignment_body": "both"
+  },
+  "styles": [
+    {
+      "style_id": "Normal",
+      "name": "Основной текст",
+      "based_on": null,
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx Normal / @Common",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "both",
+        "first_line_indent_twips": 851,
+        "first_line_indent_mm": 15.01,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "line_twips": 360,
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx Normal: firstLine=851, both, line=360 (1.5)."
+    },
+    {
+      "style_id": "StructuralHeading",
+      "name": "Структурный заголовок (ГОСТ)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Header1",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 16,
+        "bold": false,
+        "italic": false,
+        "all_caps": true,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.25,
+        "line_spacing_rule": "auto",
+        "line_twips": 300,
+        "keep_with_next": true,
+        "page_break_before": true,
+        "outline_level": 0
+      },
+      "notes": "A.docx @Header1. Чёрный. С новой страницы. 16 pt CAPS, center."
+    },
+    {
+      "style_id": "Heading1",
+      "name": "Заголовок 1 (раздел)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Header2",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 14,
+        "bold": false,
+        "italic": false,
+        "all_caps": true,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_twips": 720,
+        "first_line_indent_mm": 12.7,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "line_twips": 360,
+        "keep_with_next": true,
+        "page_break_before": true,
+        "outline_level": 0
+      },
+      "run_color": "000000",
+      "notes": "A.docx @Header2. Чёрный. Разрыв страницы перед заголовком. 14 pt CAPS, firstLine=720, line 1.5."
+    },
+    {
+      "style_id": "Heading2",
+      "name": "Заголовок 2 (подраздел)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Header3",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 14,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "left_indent_twips": 1560,
+        "hanging_twips": 709,
+        "left_indent_mm": 27.52,
+        "hanging_mm": 12.51,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 18,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.25,
+        "line_spacing_rule": "auto",
+        "line_twips": 300,
+        "keep_with_next": true,
+        "page_break_before": false,
+        "outline_level": 1
+      },
+      "notes": "A.docx @Header3. Чёрный. Пустая строка перед (18 pt). 14 pt; left=1560 / hanging=709."
+    },
+    {
+      "style_id": "Heading3",
+      "name": "Заголовок 3 (пункт)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Header4",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": true,
+        "italic": true,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "left_indent_twips": 1560,
+        "hanging_twips": 709,
+        "left_indent_mm": 27.52,
+        "hanging_mm": 12.51,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 18,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.25,
+        "line_spacing_rule": "auto",
+        "line_twips": 300,
+        "keep_with_next": true,
+        "page_break_before": false,
+        "outline_level": 2
+      },
+      "notes": "A.docx @Header4. Чёрный. Пустая строка перед (18 pt). 12 pt bold+italic."
+    },
+    {
+      "style_id": "CaptionTable",
+      "name": "Название таблицы",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Title.Table",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 18,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.25,
+        "line_twips": 300,
+        "line_spacing_rule": "auto",
+        "keep_with_next": true,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx @Title.Table. Пустая строка ПЕРЕД названием таблицы (18 pt)."
+    },
+    {
+      "style_id": "CaptionFigure",
+      "name": "Подпись рисунка",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx @Title.Picture",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 18,
+        "spacing_after_pt": 18,
+        "line_spacing": 1.25,
+        "line_twips": 300,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Пустая строка ПЕРЕД рисунком/подписью и ПОСЛЕ подписи (18 pt). После таблицы — add_empty_line()."
+    },
+    {
+      "style_id": "TableCell",
+      "name": "Текст ячейки таблицы",
+      "based_on": "Normal",
+      "next": "TableCell",
+      "type": "paragraph",
+      "source_style": "A.docx @Table.Text",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 10,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 3,
+        "spacing_after_pt": 3,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "1 абзац: 3pt сверху и снизу. Несколько: первый 3pt top, последний 3pt bottom, средние 0 (fill_table_cell)."
+    },
+    {
+      "style_id": "TableHeader",
+      "name": "Заголовок таблицы (центр)",
+      "based_on": "TableCell",
+      "next": "TableCell",
+      "type": "paragraph",
+      "source_style": "A.docx @Table.Header-C",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 10,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 3,
+        "spacing_after_pt": 3,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": true,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx @Table.Header-C"
+    },
+    {
+      "style_id": "TableHeaderLeft",
+      "name": "Заголовок таблицы (лево)",
+      "based_on": "TableCell",
+      "next": "TableCell",
+      "type": "paragraph",
+      "source_style": "A.docx @Table.Header-L",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 10,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "left_indent_twips": 113,
+        "first_line_indent_mm": 0,
+        "spacing_before_pt": 1,
+        "spacing_after_pt": 1,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": true,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx @Table.Header-L"
+    },
+    {
+      "style_id": "Formula",
+      "name": "Формула (ГОСТ)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 6,
+        "spacing_after_pt": 6,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null,
+        "tab_stops": [
+          { "type": "right", "position_twips": 9354 }
+        ]
+      },
+      "notes": "Формула по центру; номер справа в круглых скобках, напр. (1). Реализация: tab stop right на правой границе полосы набора (~ content width) + TAB + (N)."
+    },
+    {
+    {
+      "style_id": "GostListDash",
+      "name": "ГОСТ список (тире)",
+      "based_on": "Normal",
+      "next": "GostListDash",
+      "type": "paragraph",
+      "word_numbering": false,
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "both",
+        "left_indent_twips": 720,
+        "hanging_twips": 360,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "marker": "—",
+      "marker_separator": "\\t",
+      "marker_unicode": "U+2014 EM DASH + TAB",
+      "notes": "Маркер «—» + табуляция (не пробел). Tab stop = left indent 720 twips. Без w:numPr."
+    },
+    {
+      "style_id": "GostListNumber",
+      "name": "ГОСТ список (нумерация)",
+      "based_on": "Normal",
+      "next": "GostListNumber",
+      "type": "paragraph",
+      "word_numbering": false,
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "both",
+        "left_indent_twips": 720,
+        "hanging_twips": 360,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "marker": "1)",
+      "notes": "Номер в тексте («1) »), без Word auto-numbering (numPr снимается)."
+    },
+    {
+      "style_id": "Quote",
+      "name": "Цитата",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx Quote",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": true,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "both",
+        "first_line_indent_twips": 851,
+        "first_line_indent_mm": 15.01,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx Quote: italic; абзац как Normal (firstLine 851, 1.5)."
+    },
+    {
+      "style_id": "Bibliography",
+      "name": "Библиографическая запись",
+      "based_on": "Normal",
+      "next": "Bibliography",
+      "type": "paragraph",
+      "source_style": "A.docx @Paragraph s1.0_i0.0",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "both",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 2,
+        "spacing_after_pt": 2,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A: без абзацного отступа, spacing 40 twips, одинарный. Содержание — ГОСТ Р 7.0.5."
+    },
+    {
+      "style_id": "toc1",
+      "name": "Оглавление 1",
+      "word_style_name": "toc 1",
+      "based_on": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx toc 1",
+      "run": { "font": "Times New Roman", "size_pt": 12, "bold": false, "italic": false, "all_caps": false },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_mm": 0,
+        "spacing_after_pt": 5,
+        "line_spacing": 1.5
+      },
+      "notes": "A.docx toc 1: after=100 twips"
+    },
+    {
+      "style_id": "toc2",
+      "name": "Оглавление 2",
+      "word_style_name": "toc 2",
+      "based_on": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx toc 2",
+      "run": { "font": "Times New Roman", "size_pt": 12, "bold": false, "italic": false, "all_caps": true },
+      "paragraph": {
+        "alignment": "left",
+        "left_indent_twips": 1418,
+        "hanging_twips": 851,
+        "spacing_before_pt": 10,
+        "spacing_after_pt": 4,
+        "line_spacing": 1.5
+      },
+      "notes": "A.docx toc 2: CAPS, hanging"
+    },
+    {
+      "style_id": "toc3",
+      "name": "Оглавление 3",
+      "word_style_name": "toc 3",
+      "based_on": "Normal",
+      "type": "paragraph",
+      "source_style": "A.docx toc 3",
+      "run": { "font": "Times New Roman", "size_pt": 12, "bold": false, "italic": false, "all_caps": false },
+      "paragraph": {
+        "alignment": "left",
+        "left_indent_twips": 2410,
+        "hanging_twips": 974,
+        "spacing_before_pt": 3,
+        "spacing_after_pt": 1,
+        "line_spacing": 1.25
+      },
+      "notes": "A.docx toc 3"
+    },
+    {
+      "style_id": "FooterPageNumber",
+      "name": "Номер страницы",
+      "based_on": "Normal",
+      "next": "FooterPageNumber",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Нижний колонтитул, по центру, арабские цифры. На титульном листе номер не печатают (different first page)."
+    },
+    {
+      "style_id": "TitleOrg",
+      "name": "Титул: организация",
+      "based_on": "Normal",
+      "next": "TitleOrg",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": true,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Министерство/организация вверху титульного листа."
+    },
+    {
+      "style_id": "TitleDocType",
+      "name": "Титул: вид документа",
+      "based_on": "Normal",
+      "next": "TitleTopic",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": true,
+        "italic": false,
+        "all_caps": true,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 24,
+        "spacing_after_pt": 12,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "ОТЧЁТ О НАУЧНО-ИССЛЕДОВАТЕЛЬСКОЙ РАБОТЕ"
+    },
+    {
+      "style_id": "TitleTopic",
+      "name": "Титул: тема",
+      "based_on": "Normal",
+      "next": "TitleMeta",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": true,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 12,
+        "spacing_after_pt": 12,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Наименование темы НИР."
+    },
+    {
+      "style_id": "TitleMeta",
+      "name": "Титул: реквизиты",
+      "based_on": "Normal",
+      "next": "TitleMeta",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Шифр, этап, исполнители, подписи — по образцу титульного листа ГОСТ 7.32."
+    },
+    {
+      "style_id": "TitleCityYear",
+      "name": "Титул: город и год",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "center",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.5,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "Внизу титульного листа: город и год."
+    },
+    {
+      "style_id": "CodeBlock",
+      "name": "Листинг (вне ГОСТ)",
+      "based_on": "Normal",
+      "next": "Normal",
+      "type": "paragraph",
+      "run": {
+        "font": "Courier New",
+        "size_pt": 12,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 6,
+        "spacing_after_pt": 6,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "В ГОСТ 7.32 нет стиля кода; для md2docx — pragmatic default. В приложениях допустимо."
+    },
+    {
+      "style_id": "FootnoteText",
+      "name": "Текст сноски",
+      "based_on": "Normal",
+      "next": "FootnoteText",
+      "type": "paragraph",
+      "source_style": "A.docx @Foot-note",
+      "run": {
+        "font": "Times New Roman",
+        "size_pt": 10,
+        "bold": false,
+        "italic": false,
+        "all_caps": false,
+        "color": "000000"
+      },
+      "paragraph": {
+        "alignment": "left",
+        "first_line_indent_mm": 0,
+        "left_indent_mm": 0,
+        "right_indent_mm": 0,
+        "spacing_before_pt": 0,
+        "spacing_after_pt": 0,
+        "line_spacing": 1.0,
+        "line_spacing_rule": "auto",
+        "keep_with_next": false,
+        "page_break_before": false,
+        "outline_level": null
+      },
+      "notes": "A.docx @Foot-note: 10 pt (sz=20), без абзацного отступа, одинарный."
+    }
+  ],
+  "numbering": {
+    "list_bullet": {
+      "enabled": false,
+      "reason": "Word numPr/bullet disabled; marker is plain text EM DASH",
+      "text_marker": "—\\t"
+    },
+    "list_number": {
+      "enabled": false,
+      "reason": "numbers embedded in paragraph text as '1) '",
+      "text_format": "%d) "
+    }
+  },
+  "markdown_map": {
+    "p": "Normal",
+    "h1_structural": "StructuralHeading",
+    "h1": "Heading1",
+    "h2": "Heading2",
+    "h3": "Heading3",
+    "ul": "GostListDash",
+    "ol": "GostListNumber",
+    "table": "TableCell",
+    "table_header": "TableHeader",
+    "table_caption": "CaptionTable",
+    "image_caption": "CaptionFigure",
+    "blockquote": "Quote",
+    "code_block": "CodeBlock",
+    "footnote": "FootnoteText",
+    "bibliography_item": "Bibliography",
+    "hr": null,
+    "formula": "Formula"
+  },
+  "structural_heading_keywords": [
+    "РЕФЕРАТ",
+    "СОДЕРЖАНИЕ",
+    "ТЕРМИНЫ И ОПРЕДЕЛЕНИЯ",
+    "ПЕРЕЧЕНЬ СОКРАЩЕНИЙ И ОБОЗНАЧЕНИЙ",
+    "ВВЕДЕНИЕ",
+    "ЗАКЛЮЧЕНИЕ",
+    "СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ",
+    "ПРИЛОЖЕНИЕ"
+  ]
+}
