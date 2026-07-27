@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from md2docx.application.ports import DocumentWriter
+from md2docx.application.ports import DocumentRestyler
 from md2docx.domain.stylespec import RenderOptions
 
 
 class RestyleDocx:
-    def __init__(self, writer: DocumentWriter) -> None:
-        self._writer = writer
+    def __init__(self, restyler: DocumentRestyler) -> None:
+        self._restyler = restyler
 
     def execute(
         self,
@@ -16,4 +16,4 @@ class RestyleDocx:
         dest: Path,
         options: RenderOptions,
     ) -> Path:
-        return self._writer.restyle(source, dest, options)
+        return self._restyler.restyle(source, dest, options)

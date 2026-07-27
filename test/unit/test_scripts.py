@@ -1,4 +1,9 @@
-from md2docx.domain.scripts import iter_script_segments, strip_md_inline
+from md2docx.domain.scripts import (
+    iter_script_segments,
+    segments_to_markdown,
+    strip_md_inline,
+    text_roundtrip_scripts,
+)
 
 
 def _flags(text: str) -> list[tuple[str, str]]:
@@ -28,3 +33,9 @@ def test_escape_literals():
 
 def test_strip_keeps_scripts():
     assert "_2" in strip_md_inline("**H**_2O")
+
+
+def test_segments_roundtrip_encode():
+    assert text_roundtrip_scripts("H_2O") == "H_2O"
+    assert text_roundtrip_scripts("x_{i+1}") == "x_{i+1}"
+    assert segments_to_markdown([("plain", "E="), ("super", "2")]) == "E=^2"

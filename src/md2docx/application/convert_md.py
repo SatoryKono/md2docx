@@ -21,5 +21,10 @@ class ConvertMarkdownToDocx:
         title: TitleMeta | None = None,
     ) -> Path:
         blocks = list(self._parser.parse(markdown))
-        model = DocumentModel(title=title or TitleMeta(), blocks=blocks)
+        default_page = getattr(self._parser, "default_page", None)
+        model = DocumentModel(
+            title=title or TitleMeta(),
+            blocks=blocks,
+            **({"default_page": default_page} if default_page is not None else {}),
+        )
         return self._writer.write(model, options, dest)

@@ -5,6 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Union
 
+from md2docx.domain.page import PageSetup, page_setup_default
+from md2docx.domain.spans import TextSpan
+
 
 @dataclass
 class TitleMeta:
@@ -23,6 +26,7 @@ class Heading:
 @dataclass
 class Paragraph:
     text: str
+    spans: list[TextSpan] | None = None
 
 
 @dataclass
@@ -30,6 +34,7 @@ class ListItem:
     text: str
     ordered: bool = False
     index: int | None = None  # 1-based for ordered
+    spans: list[TextSpan] | None = None
 
 
 @dataclass
@@ -64,6 +69,13 @@ class EmptyLine:
     pass
 
 
+@dataclass
+class SectionBreak:
+    """Начало секции с указанным PageSetup (контент после маркера — в этой секции)."""
+
+    setup: PageSetup = field(default_factory=page_setup_default)
+
+
 Block = Union[
     Heading,
     Paragraph,
@@ -74,10 +86,12 @@ Block = Union[
     Quote,
     CodeLine,
     EmptyLine,
+    SectionBreak,
 ]
 
 
 @dataclass
 class DocumentModel:
     title: TitleMeta = field(default_factory=TitleMeta)
+    default_page: PageSetup = field(default_factory=page_setup_default)
     blocks: list[Block] = field(default_factory=list)

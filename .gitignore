@@ -10,16 +10,33 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.benchmarks/
 
 # generated / local large files
 *.docx
 !test/fixtures/**/*.docx
+!test/fixtures/a_fragment.docx
 A.docx
 ~$*
 _script_test.docx
 report*.docx
 gost-demo.docx
 sample.md.bak
+
+# conversion / audit scratch (root only — do NOT use bare "_*" :
+# it would ignore every __init__.py / __main__.py)
+/_*/
+/_*.md
+/_*.txt
+/_*.docx
+/mdA.md
+/docxA.docx
+/docxA_media/
+/A_media/
+*_media/
+
+# deprecated root shim (removed; keep ignore if recreated)
+gost_styles_python_docx.py
 
 # OS
 Thumbs.db

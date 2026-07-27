@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-
 FONT = "Times New Roman"
 BODY_PT = 12.0
 TABLE_PT = 10.0
@@ -79,6 +78,33 @@ STYLE_NAMES = [
 
 
 @dataclass
+class StylePack:
+    """Семантический пакет стилей (JSON primary / code defaults)."""
+
+    font: str = FONT
+    body_pt: float = BODY_PT
+    table_pt: float = TABLE_PT
+    small_pt: float = SMALL_PT
+    line_spacing: float = LINE_1_5
+    first_line_mm: float = FIRST_LINE_MM
+    page: dict[str, float] = field(default_factory=lambda: dict(PAGE_DEFAULT))
+    # raw style entries from JSON (optional overlays)
+    styles: list[dict] = field(default_factory=list)
+    source: str | None = None
+
+    def to_render_kwargs(self) -> dict:
+        return {
+            "font": self.font,
+            "body_pt": self.body_pt,
+            "table_pt": self.table_pt,
+            "small_pt": self.small_pt,
+            "line_spacing": self.line_spacing,
+            "first_line_mm": self.first_line_mm,
+            "page": dict(self.page),
+        }
+
+
+@dataclass
 class RenderOptions:
     font: str = FONT
     body_pt: float = BODY_PT
@@ -88,8 +114,26 @@ class RenderOptions:
     first_line_mm: float = FIRST_LINE_MM
     page: dict[str, float] = field(default_factory=lambda: dict(PAGE_DEFAULT))
     page_numbers: bool = True
+    # True: ошибки медиа (картинки) → исключение; False: warning + continue
+    strict: bool = False
+    style_pack: StylePack | None = None
 
     def as_style_kwargs(self) -> dict:
+        if self.style_pack is not None:
+            kw = self.style_pack.to_render_kwargs()
+            # CLI overrides on RenderOptions win over pack for scalar fields
+            kw.update(
+                {
+                    "font": self.font,
+                    "body_pt": self.body_pt,
+                    "table_pt": self.table_pt,
+                    "small_pt": self.small_pt,
+                    "line_spacing": self.line_spacing,
+                    "first_line_mm": self.first_line_mm,
+                    "page": self.page,
+                }
+            )
+            return kw
         return {
             "font": self.font,
             "body_pt": self.body_pt,
@@ -103,3 +147,7 @@ class RenderOptions:
 
 def default_render_options() -> RenderOptions:
     return RenderOptions()
+
+
+def default_style_pack() -> StylePack:
+    return StylePack()

@@ -15,10 +15,41 @@ from md2docx.domain.model import (
     ListItem,
     Paragraph,
     Quote,
+    SectionBreak,
     Table,
 )
+from md2docx.domain.page import PageSetup, page_setup_default, parse_section_directive_attrs
 from md2docx.domain.scripts import strip_md_inline
+from md2docx.domain.spans import parse_inline_to_spans, spans_to_plain
 from md2docx.domain.structural import is_structural_heading
+
+_SECTION_DIR_RE = re.compile(
+    r"<!--\s*md2docx:section\s+(.+?)\s*-->",
+    re.IGNORECASE,
+)
+
+# ATX heading: "# Title". Не путать с легендой рисунка/таблицы:
+# "# – достоверность различия (P < 0,05) с группой ложной патологии"
+_ATX_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
+# маркеры примечаний/легенды после «# » (символ # — не заголовок)
+_LEGEND_AFTER_HASH_RE = re.compile(
+    r"^[–—•*&\u2013\u2014]"  # тире / * / &
+    r"|^достоверност"  # «достоверность различия…»
+    r"|^\(\s*P\s*[<>≤≥]"  # (P < 0,05)
+    ,
+    re.IGNORECASE,
+)
+
+
+def _is_real_atx_heading(hashes: str, body: str) -> bool:
+    """True только для настоящих ATX-заголовков, не для строк-легенд «# – …»."""
+    body = (body or "").strip()
+    if not body:
+        return False
+    if _LEGEND_AFTER_HASH_RE.match(body):
+        return False
+    # «# – text» / «# — text» уже покрыты; «#* note» без пробела не матчится ATX
+    return True
 
 
 class SimpleMarkdownParser:
@@ -26,15 +57,18 @@ class SimpleMarkdownParser:
 
     def __init__(self) -> None:
         self._pending_table_caption: str | None = None
+        self.default_page: PageSetup = page_setup_default()
 
     def parse(self, text: str) -> Sequence[Block]:
         self._pending_table_caption = None
+        self.default_page = page_setup_default()
         lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
         blocks: list[Block] = []
         i = 0
         in_code = False
         code_buf: list[str] = []
         para_buf: list[str] = []
+        first_section_seen = False
 
         def flush_para() -> None:
             nonlocal para_buf
@@ -42,7 +76,10 @@ class SimpleMarkdownParser:
                 return
             joined = " ".join(para_buf).strip()
             if joined:
-                blocks.append(Paragraph(text=joined))
+                spans = parse_inline_to_spans(joined)
+                blocks.append(
+                    Paragraph(text=spans_to_plain(spans, joined), spans=spans)
+                )
             para_buf = []
 
         while i < len(lines):
@@ -70,16 +107,46 @@ class SimpleMarkdownParser:
                 i += 1
                 continue
 
-            m = re.match(r"^(#{1,6})\s+(.*)$", line)
-            if m:
+            # <!-- md2docx:section orientation=landscape ... -->
+            m_sec = _SECTION_DIR_RE.search(line.strip())
+            if m_sec:
                 flush_para()
-                level = min(len(m.group(1)), 3)
-                raw = strip_md_inline(m.group(2).strip())
-                structural = level == 1 and is_structural_heading(raw)
-                text_out = raw.upper() if structural else raw
+                setup = parse_section_directive_attrs(m_sec.group(1))
+                if not first_section_seen and not blocks:
+                    # first directive sets default_page and still emits break for writer
+                    self.default_page = setup
+                    first_section_seen = True
+                blocks.append(SectionBreak(setup=setup))
+                first_section_seen = True
+                i += 1
+                continue
+
+            # escaped \# … — обычный абзац (легенда «# – достоверность…»)
+            if line.startswith("\\#"):
+                flush_para()
                 blocks.append(
-                    Heading(level=level, text=text_out, structural=structural)
+                    Paragraph(text=strip_md_inline(line[1:].strip()))
                 )
+                i += 1
+                continue
+
+            m = _ATX_HEADING_RE.match(line)
+            if m:
+                raw_body = m.group(2).strip()
+                if _is_real_atx_heading(m.group(1), raw_body):
+                    flush_para()
+                    level = min(len(m.group(1)), 3)
+                    raw = strip_md_inline(raw_body)
+                    structural = level == 1 and is_structural_heading(raw)
+                    text_out = raw.upper() if structural else raw
+                    blocks.append(
+                        Heading(level=level, text=text_out, structural=structural)
+                    )
+                    i += 1
+                    continue
+                # легенда: сохранить строку целиком, включая ведущий «#»
+                flush_para()
+                blocks.append(Paragraph(text=strip_md_inline(line.strip())))
                 i += 1
                 continue
 
@@ -124,8 +191,24 @@ class SimpleMarkdownParser:
                     if re.match(r"^\|?[\s\-:|]+\|?$", raw):
                         i += 1
                         continue
-                    cells = [c.strip() for c in raw.strip("|").split("|")]
-                    rows.append(cells)
+                    # split on unescaped |
+                    parts: list[str] = []
+                    buf = ""
+                    esc = False
+                    body = raw.strip().strip("|")
+                    for ch in body:
+                        if esc:
+                            buf += ch
+                            esc = False
+                        elif ch == "\\":
+                            esc = True
+                        elif ch == "|":
+                            parts.append(buf.strip().replace("\\|", "|"))
+                            buf = ""
+                        else:
+                            buf += ch
+                    parts.append(buf.strip().replace("\\|", "|"))
+                    rows.append(parts)
                     i += 1
                 cap = self._pending_table_caption
                 self._pending_table_caption = None
