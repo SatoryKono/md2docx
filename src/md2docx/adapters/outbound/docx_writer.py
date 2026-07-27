@@ -149,9 +149,7 @@ class DocxWriter:
             return formula_n
         if isinstance(block, Heading):
             if block.structural:
-                eng.add_paragraph_formatted(
-                    doc, block.text, style="StructuralHeading"
-                )
+                eng.add_paragraph_formatted(doc, block.text, style="StructuralHeading")
             elif block.level <= 1:
                 eng.add_paragraph_formatted(doc, block.text, style="Heading 1")
             elif block.level == 2:
@@ -198,9 +196,7 @@ class DocxWriter:
                     pPr.remove(child)
         elif isinstance(block, Table):
             if block.caption:
-                eng.add_paragraph_formatted(
-                    doc, block.caption, style="CaptionTable"
-                )
+                eng.add_paragraph_formatted(doc, block.caption, style="CaptionTable")
             if block.rows:
                 cols = max(len(r) for r in block.rows)
                 table = doc.add_table(rows=len(block.rows), cols=cols)
@@ -210,34 +206,21 @@ class DocxWriter:
                         cell = table.cell(r_idx, c_idx)
                         text = row[c_idx] if c_idx < len(row) else ""
                         text = text.replace("<br>", "\n").replace("<br/>", "\n")
-                        style_name = (
-                            "TableHeader" if r_idx == 0 else "TableCell"
-                        )
-                        eng.fill_table_cell(
-                            cell, text, style_name=style_name, doc=doc
-                        )
+                        style_name = "TableHeader" if r_idx == 0 else "TableCell"
+                        eng.fill_table_cell(cell, text, style_name=style_name, doc=doc)
                 eng.add_empty_line(doc)
         elif isinstance(block, Figure):
             if block.path:
                 img = Path(block.path)
                 if not img.is_file():
-                    self._media_problem(
-                        f"изображение не найдено: {block.path}"
-                    )
+                    self._media_problem(f"изображение не найдено: {block.path}")
                 else:
                     try:
-                        sec = (
-                            getattr(self, "_current_section", None)
-                            or doc.sections[-1]
-                        )
+                        sec = getattr(self, "_current_section", None) or doc.sections[-1]
                         eng.add_figure_picture(doc, img, sec)
                     except Exception as exc:
-                        self._media_problem(
-                            f"не удалось вставить изображение {block.path}: {exc}"
-                        )
-            cap = eng.add_paragraph_formatted(
-                doc, block.caption, style="CaptionFigure"
-            )
+                        self._media_problem(f"не удалось вставить изображение {block.path}: {exc}")
+            cap = eng.add_paragraph_formatted(doc, block.caption, style="CaptionFigure")
             if block.path:
                 cap.paragraph_format.space_before = Pt(0)
         elif isinstance(block, Formula):

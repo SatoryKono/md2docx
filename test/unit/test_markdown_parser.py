@@ -46,16 +46,9 @@ def test_hash_legend_not_heading():
 
     paras = [b for b in blocks if isinstance(b, Paragraph)]
     heads = [b for b in blocks if isinstance(b, Heading)]
-    legend = [
-        p
-        for p in paras
-        if "ложной патологии" in (p.text or "") or p.text.startswith("# –")
-    ]
+    legend = [p for p in paras if "ложной патологии" in (p.text or "") or p.text.startswith("# –")]
     assert legend, "legend must stay Paragraph"
-    assert all(
-        "достоверн" in (p.text or "").lower() or p.text.startswith("#")
-        for p in legend
-    )
+    assert all("достоверн" in (p.text or "").lower() or p.text.startswith("#") for p in legend)
     # real heading still works
     assert any(h.level == 1 and "Настоящий" in h.text for h in heads)
     # must NOT turn legend into Heading (loses leading #)

@@ -33,9 +33,7 @@ def test_md_section_roundtrip():
         default_page=page_setup_default(),
         blocks=[
             Paragraph(text="Книжная"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Table(rows=[["A", "B"], ["1", "2"]], caption="Таблица 1 — Широкая"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="Снова книжная"),

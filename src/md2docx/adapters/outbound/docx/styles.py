@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from docx import Document
@@ -451,9 +452,7 @@ def apply_gost_styles(
         est = _get_or_add_paragraph_style(doc, style_id)
         est.base_style = normal
         use_font = "Courier New" if style_id == "CodeBlock" else font
-        _set_run_font(
-            est, font=use_font, size_pt=size, bold=bold, all_caps=caps
-        )
+        _set_run_font(est, font=use_font, size_pt=size, bold=bold, all_caps=caps)
         _set_paragraph(
             est,
             alignment=align,
@@ -464,5 +463,3 @@ def apply_gost_styles(
         )
 
     return doc
-
-

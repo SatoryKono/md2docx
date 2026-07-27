@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,25 +30,16 @@ def read_section_page_setup(section):
     """Считать PageSetup из секции Word (ориентация, размер, поля)."""
     from docx.enum.section import WD_ORIENT
 
-
     w = float(section.page_width.mm) if section.page_width else 210.0
     h = float(section.page_height.mm) if section.page_height else 297.0
-    hint = (
-        "landscape"
-        if section.orientation == WD_ORIENT.LANDSCAPE or w > h + 0.5
-        else "portrait"
-    )
+    hint = "landscape" if section.orientation == WD_ORIENT.LANDSCAPE or w > h + 0.5 else "portrait"
     return page_setup_from_physical(
         w,
         h,
         margin_left_mm=float(section.left_margin.mm) if section.left_margin else 30.0,
-        margin_right_mm=float(section.right_margin.mm)
-        if section.right_margin
-        else 15.0,
+        margin_right_mm=float(section.right_margin.mm) if section.right_margin else 15.0,
         margin_top_mm=float(section.top_margin.mm) if section.top_margin else 20.0,
-        margin_bottom_mm=float(section.bottom_margin.mm)
-        if section.bottom_margin
-        else 20.0,
+        margin_bottom_mm=float(section.bottom_margin.mm) if section.bottom_margin else 20.0,
         orientation_hint=hint,
     )
 
@@ -82,7 +74,6 @@ def set_section_page(section, setup) -> None:
     """
     from docx.enum.section import WD_ORIENT
 
-
     if not isinstance(setup, PageSetup):
         return
     n = setup.normalized()
@@ -111,8 +102,10 @@ def set_section_page(section, setup) -> None:
 def section_text_width_mm(section) -> float:
     """Ширина полосы набора = page_width − left − right (мм)."""
     try:
-        return float(section.page_width.mm) - float(section.left_margin.mm) - float(
-            section.right_margin.mm
+        return (
+            float(section.page_width.mm)
+            - float(section.left_margin.mm)
+            - float(section.right_margin.mm)
         )
     except Exception:
         return 165.0  # A4 210−30−15
@@ -121,8 +114,10 @@ def section_text_width_mm(section) -> float:
 def section_text_height_mm(section) -> float:
     """Высота полосы набора = page_height − top − bottom (мм)."""
     try:
-        return float(section.page_height.mm) - float(section.top_margin.mm) - float(
-            section.bottom_margin.mm
+        return (
+            float(section.page_height.mm)
+            - float(section.top_margin.mm)
+            - float(section.bottom_margin.mm)
         )
     except Exception:
         return 257.0  # A4 297−20−20
@@ -165,5 +160,3 @@ def add_figure_picture(doc: Document, image_path: str | Path, section) -> Any:
     pf.space_before = Pt(0)
     pf.space_after = Pt(0)
     return shape
-
-

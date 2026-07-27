@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from docx import Document
@@ -142,5 +143,3 @@ def _set_paragraph(
                 pPr.remove(child)
         el = pPr.makeelement(qn("w:outlineLvl"), {qn("w:val"): str(outline_level)})
         pPr.append(el)
-
-

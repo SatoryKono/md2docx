@@ -12,9 +12,7 @@ from md2docx.domain.model import Heading, ListItem, Paragraph, Table
 def test_toc_line_detector():
     assert _is_toc_line("1.2 Хронизация боли: роль сенситизации 4")
     assert _is_toc_line("2.7 Перспективность применения 14")
-    assert not _is_toc_line(
-        "На основе анализа эпидемиологии сформулированы ключевые аспекты."
-    )
+    assert not _is_toc_line("На основе анализа эпидемиологии сформулированы ключевые аспекты.")
     assert not _is_toc_line("1 Постановка задачи")
 
 
@@ -54,8 +52,7 @@ def test_header4_alias_and_bib(tmp_path: Path):
     doc.save(path)
     model = DocxReader(outline=False).read(path)
     assert any(
-        isinstance(b, Heading) and b.level == 3 and "Головной" in b.text
-        for b in model.blocks
+        isinstance(b, Heading) and b.level == 3 and "Головной" in b.text for b in model.blocks
     )
     assert any(isinstance(b, ListItem) and b.ordered and b.index == 1 for b in model.blocks)
 

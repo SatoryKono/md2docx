@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from docx import Document
@@ -64,5 +65,3 @@ def setup_page_numbers(doc: Document) -> None:
             pass
         fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
         add_page_number_field(fp)
-
-

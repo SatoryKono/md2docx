@@ -157,11 +157,7 @@ class DocxReader:
         pending_table_caption: str | None = None
         pending_image: Path | None = None
         code_run: list[str] = []
-        media_dir = (
-            Path(self.media_dir)
-            if self.media_dir
-            else path.with_name(path.stem + "_media")
-        )
+        media_dir = Path(self.media_dir) if self.media_dir else path.with_name(path.stem + "_media")
         image_n = 0
         body_started = not self.outline
         default_page = page_setup_default()
@@ -274,15 +270,11 @@ class DocxReader:
                         "Heading 2",
                         "Heading 3",
                     ):
-                        if is_structural_heading(text) or _looks_like_section_heading(
-                            text
-                        ):
+                        if is_structural_heading(text) or _looks_like_section_heading(text):
                             body_started = True
                         elif text and style in ("StructuralHeading", "Heading 1"):
                             if not any(isinstance(b, Heading) for b in blocks):
-                                blocks.append(
-                                    Heading(level=1, text=text, structural=True)
-                                )
+                                blocks.append(Heading(level=1, text=text, structural=True))
                             continue
                         else:
                             continue
@@ -358,9 +350,7 @@ class DocxReader:
                     continue
 
                 if style == "Formula":
-                    blocks.append(
-                        Formula(text=_FORMULA_NUM_RE.sub("", text).rstrip())
-                    )
+                    blocks.append(Formula(text=_FORMULA_NUM_RE.sub("", text).rstrip()))
                     continue
 
                 if style == "Quote":
@@ -396,27 +386,19 @@ class DocxReader:
                 if text:
                     m = _LIST_DASH_RE.match(text) or _LIST_HYPHEN_RE.match(text)
                     if m:
-                        blocks.append(
-                            ListItem(text=m.group(1).strip(), ordered=False)
-                        )
+                        blocks.append(ListItem(text=m.group(1).strip(), ordered=False))
                     else:
                         blocks.append(Paragraph(text=text))
 
         flush_code()
         flush_pending_image()
-        return DocumentModel(
-            title=title, blocks=blocks, default_page=default_page
-        )
+        return DocumentModel(title=title, blocks=blocks, default_page=default_page)
 
-    def _section_slices(
-        self, doc: Document
-    ) -> list[tuple[PageSetup, list]]:
+    def _section_slices(self, doc: Document) -> list[tuple[PageSetup, list]]:
         """Разбить body на (PageSetup, [paragraph|table]) по секциям Word."""
         from md2docx.adapters.outbound.docx_engine import read_section_page_setup
 
-        setups: list[PageSetup] = [
-            read_section_page_setup(s) for s in doc.sections
-        ]
+        setups: list[PageSetup] = [read_section_page_setup(s) for s in doc.sections]
         if not setups:
             setups = [page_setup_default()]
 
@@ -426,9 +408,7 @@ class DocxReader:
             if child.tag == qn("w:sectPr"):
                 continue
             if child.tag == qn("w:p"):
-                buckets[min(si, len(buckets) - 1)].append(
-                    DocxParagraph(child, doc)
-                )
+                buckets[min(si, len(buckets) - 1)].append(DocxParagraph(child, doc))
                 pPr = child.find(qn("w:pPr"))
                 if pPr is not None and pPr.find(qn("w:sectPr")) is not None:
                     if si < len(buckets) - 1:
@@ -490,17 +470,9 @@ class DocxReader:
                     t = _paragraph_md_text(p).strip()
                     if t or not paras:
                         paras.append(t)
-                text = (
-                    "<br>".join(paras)
-                    if len(paras) > 1
-                    else (paras[0] if paras else "")
-                )
+                text = "<br>".join(paras) if len(paras) > 1 else (paras[0] if paras else "")
                 # soft line breaks (w:br) → \n; для MD-таблиц нужен <br>
-                text = (
-                    text.replace("\r\n", "\n")
-                    .replace("\r", "\n")
-                    .replace("\n", "<br>")
-                )
+                text = text.replace("\r\n", "\n").replace("\r", "\n").replace("\n", "<br>")
                 cells.append(text)
             rows.append(cells)
         return rows

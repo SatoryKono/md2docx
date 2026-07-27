@@ -217,13 +217,9 @@ def main(argv: list[str] | None = None) -> int:
                 )
             elif in_suf in {".md", ".markdown", ".txt"}:
                 if out_suf in {".md", ".markdown"}:
-                    raise UnsupportedFormatError(
-                        "для MD-входа укажите выход .docx"
-                    )
+                    raise UnsupportedFormatError("для MD-входа укажите выход .docx")
                 text = in_path.read_text(encoding="utf-8")
-                title = TitleMeta(
-                    org=args.org, topic=args.topic, city_year=args.city_year
-                )
+                title = TitleMeta(org=args.org, topic=args.topic, city_year=args.city_year)
                 path = ConvertMarkdownToDocx(parser_md, writer).execute(
                     text, out, options, title=title
                 )

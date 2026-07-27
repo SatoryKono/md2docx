@@ -22,9 +22,7 @@ def test_physical_without_hint_portrait():
 
 
 def test_parse_invalid_numbers_use_defaults():
-    s = parse_section_directive_attrs(
-        "orientation=portrait width_mm=notanumber margin_left=abc"
-    )
+    s = parse_section_directive_attrs("orientation=portrait width_mm=notanumber margin_left=abc")
     assert s.width_mm == 210.0
     assert s.margin_left_mm == 30.0
 

@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from docx import Document
@@ -20,6 +21,7 @@ ALIGN = {
     "right": WD_ALIGN_PARAGRAPH.RIGHT,
     "both": WD_ALIGN_PARAGRAPH.JUSTIFY,
 }
+
 
 def _get_style_by_name(doc: Document, name: str):
     """Lookup paragraph style by visible name only (no style_id → no UserWarning)."""
@@ -91,5 +93,3 @@ def _set_run_font(
         except Exception:
             hex_val = "000000"
         rpr.append(rpr.makeelement(qn("w:color"), {qn("w:val"): hex_val}))
-
-

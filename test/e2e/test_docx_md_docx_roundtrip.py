@@ -24,14 +24,13 @@ A_FRAGMENT = FIXTURES / "a_fragment.docx"
 def _docx_to_canonical_md(docx_path: Path, tmp: Path, name: str) -> str:
     md_path = tmp / name
     # outline=False: фикстура a_fragment уже «чистая», титул сохраняем
-    ConvertDocxToMarkdown(
-        DocxReader(outline=False), MarkdownWriter()
-    ).execute(docx_path, md_path)
+    ConvertDocxToMarkdown(DocxReader(outline=False), MarkdownWriter()).execute(docx_path, md_path)
     text = md_path.read_text(encoding="utf-8")
     blocks = list(SimpleMarkdownParser().parse(text))
     from md2docx.domain.model import DocumentModel, TitleMeta
 
     return serialize_document(DocumentModel(title=TitleMeta(), blocks=blocks))
+
 
 def test_a_fragment_fixture_exists():
     assert A_FRAGMENT.is_file(), (
@@ -50,17 +49,14 @@ def test_docx_md_docx_identity_a_fragment(tmp_path: Path):
 
     # md → docx
     mid_docx = tmp_path / "mid.docx"
-    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(
-        md1, mid_docx, options
-    )
+    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(md1, mid_docx, options)
     assert mid_docx.is_file()
 
     # docx → md again
     md2 = _docx_to_canonical_md(mid_docx, tmp_path, "round2.md")
 
     assert md2 == md1, (
-        "docx→md→docx→md mismatch (A.docx fragment)\n"
-        f"--- md1 ---\n{md1!r}\n--- md2 ---\n{md2!r}\n"
+        f"docx→md→docx→md mismatch (A.docx fragment)\n--- md1 ---\n{md1!r}\n--- md2 ---\n{md2!r}\n"
     )
 
 
@@ -92,7 +88,6 @@ def test_a_fragment_contains_table_and_body():
     assert "Table" in kinds
     # content smoke from A.docx section 1
     texts = " ".join(
-        getattr(b, "text", "") or getattr(b, "caption", "") or ""
-        for b in model.blocks
+        getattr(b, "text", "") or getattr(b, "caption", "") or "" for b in model.blocks
     )
     assert "QPCT" in texts or "боли" in texts or "болев" in texts.lower()

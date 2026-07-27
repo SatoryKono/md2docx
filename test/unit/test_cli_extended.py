@@ -103,9 +103,7 @@ def test_restyle_use_case(tmp_path: Path):
     demo = tmp_path / "d.docx"
     assert main(["--demo", "-o", str(demo), "-q"]) == 0
     out = tmp_path / "r.docx"
-    path = RestyleDocx(DocxWriter()).execute(
-        demo, out, RenderOptions(page_numbers=True)
-    )
+    path = RestyleDocx(DocxWriter()).execute(demo, out, RenderOptions(page_numbers=True))
     assert Path(path).is_file()
 
 

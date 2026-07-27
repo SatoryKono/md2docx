@@ -20,9 +20,7 @@ H_2O и E=mc^2.
 1. шаг
 """
     out = tmp_path / "out.docx"
-    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(
-        md, out, RenderOptions()
-    )
+    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(md, out, RenderOptions())
     assert out.is_file()
     doc = Document(str(out))
     texts = [p.text for p in doc.paragraphs if p.text.strip()]

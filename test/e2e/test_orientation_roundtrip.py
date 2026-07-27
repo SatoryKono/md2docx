@@ -43,9 +43,7 @@ def test_writer_multi_section_orientation(tmp_path: Path):
         default_page=page_setup_default(),
         blocks=[
             Paragraph(text="Портрет текст"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Table(
                 rows=[["Col1", "Col2", "Col3"], ["a", "b", "c"]],
                 caption="Таблица 1 — Landscape",
@@ -70,9 +68,7 @@ def test_docx_md_docx_orientation(tmp_path: Path):
         default_page=page_setup_default(),
         blocks=[
             Paragraph(text="До таблицы"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Table(rows=[["X", "Y"], ["1", "2"]], caption="Таблица 1 — Wide"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="После"),
@@ -83,9 +79,7 @@ def test_docx_md_docx_orientation(tmp_path: Path):
     assert "landscape" in _orients(src)
 
     md_path = tmp_path / "out.md"
-    ConvertDocxToMarkdown(DocxReader(outline=False), MarkdownWriter()).execute(
-        src, md_path
-    )
+    ConvertDocxToMarkdown(DocxReader(outline=False), MarkdownWriter()).execute(src, md_path)
     md = md_path.read_text(encoding="utf-8")
     assert "orientation=landscape" in md
 
@@ -106,9 +100,7 @@ def test_restyle_preserves_orientation(tmp_path: Path):
         default_page=page_setup_default(),
         blocks=[
             Paragraph(text="Портрет"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Table(rows=[["A", "B"], ["1", "2"]], caption="Таблица 1 — Wide"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="Снова портрет"),
@@ -133,15 +125,11 @@ def test_reader_writer_orientation_sequence(tmp_path: Path):
         default_page=page_setup_default(),
         blocks=[
             Paragraph(text="P0"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Paragraph(text="L1"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="P2"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Paragraph(text="L3"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="P4"),

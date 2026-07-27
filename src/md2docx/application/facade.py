@@ -82,6 +82,4 @@ def build_demo_docx(
     *,
     options: RenderOptions | None = None,
 ) -> Path:
-    return BuildDemo(DocxWriter()).execute(
-        Path(dest), options or default_render_options()
-    )
+    return BuildDemo(DocxWriter()).execute(Path(dest), options or default_render_options())

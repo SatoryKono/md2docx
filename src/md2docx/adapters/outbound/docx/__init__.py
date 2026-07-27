@@ -1,4 +1,5 @@
 """DOCX outbound subpackage (styles, page, runs, cells, restyle)."""
+
 from md2docx.adapters.outbound.docx.cells import (
     add_empty_line,
     apply_cell_paragraph_spacing,

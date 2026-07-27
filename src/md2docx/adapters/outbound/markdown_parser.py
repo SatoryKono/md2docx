@@ -35,8 +35,7 @@ _ATX_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
 _LEGEND_AFTER_HASH_RE = re.compile(
     r"^[–—•*&\u2013\u2014]"  # тире / * / &
     r"|^достоверност"  # «достоверность различия…»
-    r"|^\(\s*P\s*[<>≤≥]"  # (P < 0,05)
-    ,
+    r"|^\(\s*P\s*[<>≤≥]",  # (P < 0,05)
     re.IGNORECASE,
 )
 
@@ -77,9 +76,7 @@ class SimpleMarkdownParser:
             joined = " ".join(para_buf).strip()
             if joined:
                 spans = parse_inline_to_spans(joined)
-                blocks.append(
-                    Paragraph(text=spans_to_plain(spans, joined), spans=spans)
-                )
+                blocks.append(Paragraph(text=spans_to_plain(spans, joined), spans=spans))
             para_buf = []
 
         while i < len(lines):
@@ -124,9 +121,7 @@ class SimpleMarkdownParser:
             # escaped \# … — обычный абзац (легенда «# – достоверность…»)
             if line.startswith("\\#"):
                 flush_para()
-                blocks.append(
-                    Paragraph(text=strip_md_inline(line[1:].strip()))
-                )
+                blocks.append(Paragraph(text=strip_md_inline(line[1:].strip())))
                 i += 1
                 continue
 
@@ -139,9 +134,7 @@ class SimpleMarkdownParser:
                     raw = strip_md_inline(raw_body)
                     structural = level == 1 and is_structural_heading(raw)
                     text_out = raw.upper() if structural else raw
-                    blocks.append(
-                        Heading(level=level, text=text_out, structural=structural)
-                    )
+                    blocks.append(Heading(level=level, text=text_out, structural=structural))
                     i += 1
                     continue
                 # легенда: сохранить строку целиком, включая ведущий «#»
@@ -181,9 +174,7 @@ class SimpleMarkdownParser:
                 i += 1
                 continue
 
-            if "|" in line and i + 1 < len(lines) and re.match(
-                r"^\s*\|?[\s\-:|]+\|", lines[i + 1]
-            ):
+            if "|" in line and i + 1 < len(lines) and re.match(r"^\s*\|?[\s\-:|]+\|", lines[i + 1]):
                 flush_para()
                 rows: list[list[str]] = []
                 while i < len(lines) and "|" in lines[i]:

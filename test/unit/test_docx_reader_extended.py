@@ -42,9 +42,7 @@ def test_reader_roundtrip_rich_model(tmp_path: Path):
             Formula(text="a+b"),
             Quote(text="quote text"),
             CodeLine(text="x=1"),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Paragraph(text="land"),
         ],
     )
@@ -57,15 +55,11 @@ def test_reader_roundtrip_rich_model(tmp_path: Path):
     assert "Paragraph" in kinds
     assert "Table" in kinds
     assert "Figure" in kinds
-    assert "SectionBreak" in kinds or any(
-        isinstance(b, SectionBreak) for b in got.blocks
-    )
+    assert "SectionBreak" in kinds or any(isinstance(b, SectionBreak) for b in got.blocks)
     figs = [b for b in got.blocks if isinstance(b, Figure)]
     assert any(f.path for f in figs)
     # landscape break or default
-    setups = [got.default_page] + [
-        b.setup for b in got.blocks if isinstance(b, SectionBreak)
-    ]
+    setups = [got.default_page] + [b.setup for b in got.blocks if isinstance(b, SectionBreak)]
     assert any(s.orientation == "landscape" for s in setups)
 
 

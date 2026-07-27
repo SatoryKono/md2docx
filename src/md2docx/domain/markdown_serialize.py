@@ -68,15 +68,10 @@ def serialize_document(
     # Явная секция 0, если не portrait A4 default или всегда для round-trip
     if emit_default_section:
         # emit if non-default OR first block is not SectionBreak
-        first_is_break = any(
-            isinstance(b, SectionBreak)
-            for b in model.blocks[:1]
-        )
+        first_is_break = any(isinstance(b, SectionBreak) for b in model.blocks[:1])
         if not first_is_break:
             std = page_setup_default()
-            if default.differs_from(std) or any(
-                isinstance(b, SectionBreak) for b in model.blocks
-            ):
+            if default.differs_from(std) or any(isinstance(b, SectionBreak) for b in model.blocks):
                 lines.append(_section_directive(default))
                 lines.append("")
 
@@ -151,6 +146,7 @@ def serialize_document(
                     lines.append(f"Таблица: {cap}")
                 lines.append("")
             if b.rows:
+
                 def _cell(c: str) -> str:
                     # Newlines break GFM tables (parser sees new rows).
                     # Reader uses <br> for multi-para cells; keep that and

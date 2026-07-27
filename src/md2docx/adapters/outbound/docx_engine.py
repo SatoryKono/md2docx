@@ -3,6 +3,7 @@
 Prefer: `from md2docx.adapters.outbound import docx` or submodule imports.
 Demo content lives in domain.demo_document + DocumentWriter.write.
 """
+
 from md2docx.adapters.outbound.docx import *  # noqa: F403
 from md2docx.adapters.outbound.docx import (  # noqa: F401
     _get_or_add_paragraph_style,

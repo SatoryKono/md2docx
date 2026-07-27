@@ -35,9 +35,7 @@ def _roundtrip(md_text: str, tmp_path: Path) -> tuple[str, str]:
     ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(
         canonical, docx_path, options
     )
-    ConvertDocxToMarkdown(DocxReader(), MarkdownWriter()).execute(
-        docx_path, md_out_path
-    )
+    ConvertDocxToMarkdown(DocxReader(), MarkdownWriter()).execute(docx_path, md_out_path)
     out = md_out_path.read_text(encoding="utf-8")
     # нормализуем перевод строк
     out_canon = _canonical_md(out)

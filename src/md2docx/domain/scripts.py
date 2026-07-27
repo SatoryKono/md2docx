@@ -61,11 +61,7 @@ def iter_script_segments(text: str) -> Iterator[tuple[str, str]]:
 
 
 def _escape_plain(text: str) -> str:
-    return (
-        text.replace("\\", "\\\\")
-        .replace("_", "\\_")
-        .replace("^", "\\^")
-    )
+    return text.replace("\\", "\\\\").replace("_", "\\_").replace("^", "\\^")
 
 
 def _encode_script_token(kind: str, content: str) -> str:
@@ -73,9 +69,7 @@ def _encode_script_token(kind: str, content: str) -> str:
     if not content:
         return ""
     mark = "_" if kind == "sub" else "^"
-    if re.fullmatch(r"[0-9]+", content) or re.fullmatch(
-        r"[A-Za-zА-Яа-яЁё]+", content
-    ):
+    if re.fullmatch(r"[0-9]+", content) or re.fullmatch(r"[A-Za-zА-Яа-яЁё]+", content):
         return f"{mark}{content}"
     return f"{mark}{{{content}}}"
 

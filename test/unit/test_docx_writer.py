@@ -92,9 +92,7 @@ def test_write_all_block_types(tmp_path: Path):
             CodeLine(text="print(1)"),
             CodeLine(text=""),
             EmptyLine(),
-            SectionBreak(
-                setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-            ),
+            SectionBreak(setup=PageSetup(orientation="landscape", width_mm=210, height_mm=297)),
             Paragraph(text="landscape body"),
             SectionBreak(setup=page_setup_default()),
             Paragraph(text="again portrait"),
@@ -118,11 +116,7 @@ def test_write_all_block_types(tmp_path: Path):
     orients = []
     for s in doc.sections:
         w, h = float(s.page_width.mm), float(s.page_height.mm)
-        orients.append(
-            "L"
-            if s.orientation == WD_ORIENT.LANDSCAPE or w > h + 0.5
-            else "P"
-        )
+        orients.append("L" if s.orientation == WD_ORIENT.LANDSCAPE or w > h + 0.5 else "P")
     assert "L" in orients
 
 
@@ -136,9 +130,7 @@ def test_write_strict_missing_image_raises(tmp_path: Path):
     )
     dest = tmp_path / "strict.docx"
     try:
-        DocxWriter().write(
-            model, RenderOptions(page_numbers=False, strict=True), dest
-        )
+        DocxWriter().write(model, RenderOptions(page_numbers=False, strict=True), dest)
         raised = False
     except MediaError:
         raised = True

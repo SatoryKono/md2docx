@@ -119,9 +119,7 @@ def parse_section_directive_attrs(attrs: str) -> PageSetup:
             kv[k.strip().lower()] = v.strip()
 
     orient_raw = kv.get("orientation") or kv.get("orient") or "portrait"
-    orient: Orientation = (
-        "landscape" if orient_raw.lower().startswith("land") else "portrait"
-    )
+    orient: Orientation = "landscape" if orient_raw.lower().startswith("land") else "portrait"
 
     def f(key: str, default: float) -> float:
         try:

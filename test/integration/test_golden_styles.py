@@ -25,9 +25,7 @@ MD = """# ВВЕДЕНИЕ
 
 def test_golden_margins_and_list_no_numpr(tmp_path: Path):
     out = tmp_path / "g.docx"
-    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(
-        MD, out, RenderOptions()
-    )
+    ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(MD, out, RenderOptions())
     doc = Document(str(out))
     sec = doc.sections[0]
     assert abs(float(sec.left_margin.mm) - PAGE_DEFAULT["left_mm"]) < 0.6
@@ -44,13 +42,9 @@ def test_golden_margins_and_list_no_numpr(tmp_path: Path):
         assert pPr.find(qn("w:numPr")) is None
 
     styles = {s.name for s in doc.styles}
-    assert "StructuralHeading" in styles or any(
-        "ВВЕДЕНИЕ" in p.text for p in doc.paragraphs
-    )
+    assert "StructuralHeading" in styles or any("ВВЕДЕНИЕ" in p.text for p in doc.paragraphs)
 
-    found_sub = any(
-        r.font.subscript for p in doc.paragraphs for r in p.runs if r.font.subscript
-    )
+    found_sub = any(r.font.subscript for p in doc.paragraphs for r in p.runs if r.font.subscript)
     assert found_sub
 
 

@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -83,5 +84,3 @@ def add_paragraph_formatted(
         clean = strip_md_inline(text) if text else ""
         add_runs_with_scripts(p, clean)
     return p
-
-

@@ -101,19 +101,13 @@ def test_serialize_table_newlines_become_br():
     assert "\nнеактивен" not in md  # raw newline inside cell gone
     assert "<br>" in md
     # ровно 1 header + 1 separator + 2 data rows with leading |
-    data_rows = [
-        ln for ln in md.splitlines() if ln.startswith("|") and "---" not in ln
-    ]
+    data_rows = [ln for ln in md.splitlines() if ln.startswith("|") and "---" not in ln]
     assert len(data_rows) == 3
 
 
 def test_serialize_hash_legend_escaped():
     model = DocumentModel(
-        blocks=[
-            Paragraph(
-                text="# – достоверность различия (P < 0,05) с группой ложной патологии,"
-            )
-        ]
+        blocks=[Paragraph(text="# – достоверность различия (P < 0,05) с группой ложной патологии,")]
     )
     md = serialize_document(model, emit_default_section=False)
     assert md.startswith("\\# – достоверность")
@@ -128,9 +122,7 @@ def test_serialize_hash_legend_escaped():
 
 
 def test_serialize_figure_path_posix():
-    model = DocumentModel(
-        blocks=[Figure(caption="Рисунок 1 — x", path=r"A_media\image_001.png")]
-    )
+    model = DocumentModel(blocks=[Figure(caption="Рисунок 1 — x", path=r"A_media\image_001.png")])
     md = serialize_document(model, emit_default_section=False)
     assert "A_media/image_001.png" in md
     assert "A_media\\image_001.png" not in md

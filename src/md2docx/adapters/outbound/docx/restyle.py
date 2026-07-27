@@ -1,4 +1,5 @@
 """DOCX low-level helpers (split from former docx_engine)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -173,4 +174,3 @@ def restyle_docx(
     out = str(output_path)
     doc.save(out)
     return out
-

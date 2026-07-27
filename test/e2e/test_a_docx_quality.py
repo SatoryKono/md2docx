@@ -26,16 +26,10 @@ def test_a_docx_no_toc_leak_and_has_h3(tmp_path: Path):
     model = DocxReader(outline=True, media_dir=media).read(A_DOCX)
     md = serialize_document(model)
 
-    toc_paras = [
-        b.text
-        for b in model.blocks
-        if isinstance(b, Paragraph) and _is_toc_line(b.text)
-    ]
+    toc_paras = [b.text for b in model.blocks if isinstance(b, Paragraph) and _is_toc_line(b.text)]
     assert toc_paras == [], f"TOC leak: {toc_paras[:5]}"
 
-    empty_p = sum(
-        1 for b in model.blocks if isinstance(b, Paragraph) and not b.text.strip()
-    )
+    empty_p = sum(1 for b in model.blocks if isinstance(b, Paragraph) and not b.text.strip())
     assert empty_p == 0
 
     h3 = [b for b in model.blocks if isinstance(b, Heading) and b.level == 3]
@@ -53,11 +47,7 @@ def test_a_docx_no_toc_leak_and_has_h3(tmp_path: Path):
     assert len(figs) >= 10
     assert md.count("#") >= 20
 
-    bib = [
-        b
-        for b in model.blocks
-        if isinstance(b, ListItem) and b.ordered and b.index is not None
-    ]
+    bib = [b for b in model.blocks if isinstance(b, ListItem) and b.ordered and b.index is not None]
     assert len(bib) >= 20
 
     # orientation preserved from multi-section A
@@ -96,9 +86,9 @@ def test_a_docx_md_roundtrip_sample_stable(tmp_path: Path):
     ConvertMarkdownToDocx(SimpleMarkdownParser(), DocxWriter()).execute(
         md1, docx, RenderOptions(page_numbers=False)
     )
-    ConvertDocxToMarkdown(
-        DocxReader(outline=False), MarkdownWriter()
-    ).execute(docx, tmp_path / "back.md")
+    ConvertDocxToMarkdown(DocxReader(outline=False), MarkdownWriter()).execute(
+        docx, tmp_path / "back.md"
+    )
     parser = SimpleMarkdownParser()
     blocks2 = [
         b

@@ -47,9 +47,7 @@ def test_set_and_read_section_page_roundtrip(tmp_path: Path):
     assert p0.orientation == "portrait"
     assert abs(p0.margin_left_mm - 25) < 0.5
     assert p1.orientation == "landscape"
-    assert float(doc2.sections[1].page_width.mm) > float(
-        doc2.sections[1].page_height.mm
-    )
+    assert float(doc2.sections[1].page_width.mm) > float(doc2.sections[1].page_height.mm)
 
 
 def test_section_text_width_height():
@@ -91,9 +89,7 @@ def test_restyle_preserves_landscape(tmp_path: Path):
     eng.apply_gost_styles(doc)
     eng.set_section_page(doc.sections[0], PageSetup())
     s1 = doc.add_section(WD_SECTION.NEW_PAGE)
-    eng.set_section_page(
-        s1, PageSetup(orientation="landscape", width_mm=210, height_mm=297)
-    )
+    eng.set_section_page(s1, PageSetup(orientation="landscape", width_mm=210, height_mm=297))
     src = tmp_path / "src.docx"
     dst = tmp_path / "dst.docx"
     doc.save(str(src))
